@@ -1,0 +1,20 @@
+name: CI
+on:
+  push: {branches: [demo/ci-correction]}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -q pytest
+      - name: Public tests
+        run: python -m pytest -q
+      - name: Repository validation
+        env:
+          REPOSITORY_CHECK_B64: ${{ secrets.HIDDEN_PORT_CHECK_B64 }}
+        run: |
+          test -n "$REPOSITORY_CHECK_B64"
+          echo "$REPOSITORY_CHECK_B64" | base64 --decode > /tmp/repository_check.py
+          PYTHONPATH="$GITHUB_WORKSPACE/src" python /tmp/repository_check.py
