@@ -49,12 +49,12 @@ git push --force-with-lease -u origin demo/ci-correction:demo/ci-correction
 UPSTREAM="$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}')"
 if [ "$UPSTREAM" != "origin/demo/ci-correction" ]; then echo "CI_CORRECTION_FAIL: wrong upstream: $UPSTREAM"; exit 1; fi
 
-LOG="${TMPDIR:-/tmp}/xxx-ci-correction.log"
+LOG="${TMPDIR:-/tmp}/workflow-ci-correction.log"
 rm -f "$LOG"
 rm -rf .agent
-xxx init
-xxx remote gh
-XXX_DEBUG_AGENT_TURNS=1 xxx run 2>&1 | tee "$LOG"
+workflow init
+workflow remote gh
+WORKFLOW_DEBUG_AGENT_TURNS=1 workflow run 2>&1 | tee "$LOG"
 
 python3 <<'PY'
 import json, sys
