@@ -18,9 +18,9 @@ SESSION_BEFORE="$(python3 -c "import json; print(json.load(open('.agent/state.js
 COMMIT_BEFORE="$(python3 -c "import json; print(json.load(open('.agent/state.json')).get('delivery',{}).get('commit_sha',''))")"
 HEAD_BEFORE="$(git rev-parse HEAD)"
 
-RESUME_LOG="${TMPDIR:-/tmp}/xxx-ci-resume-resume.log"
+RESUME_LOG="${TMPDIR:-/tmp}/workflow-ci-resume-resume.log"
 rm -f "$RESUME_LOG"
-xxx resume 2>&1 | tee "$RESUME_LOG"
+workflow resume 2>&1 | tee "$RESUME_LOG"
 
 python3 <<PY
 import json, sys

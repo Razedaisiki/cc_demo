@@ -24,12 +24,12 @@ UPSTREAM="$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>&1)"
 if [ "$UPSTREAM" != "origin/demo/ci-resume" ]; then echo "CI_RESUME_FAIL: wrong upstream: $UPSTREAM"; exit 1; fi
 
 rm -rf .agent
-xxx init
-xxx remote gh
+workflow init
+workflow remote gh
 
-LOG="${TMPDIR:-/tmp}/xxx-ci-resume.log"
+LOG="${TMPDIR:-/tmp}/workflow-ci-resume.log"
 rm -f "$LOG"
-XXX_DEBUG_AGENT_TURNS=1 xxx run 2>&1 | tee "$LOG"
+WORKFLOW_DEBUG_AGENT_TURNS=1 workflow run 2>&1 | tee "$LOG"
 # Note: this demo is designed for manual interrupt; if run uninterrupted it will complete normally
 python3 <<'PY'
 import json
