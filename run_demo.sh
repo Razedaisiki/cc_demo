@@ -24,12 +24,12 @@ UPSTREAM="$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>&1)"
 if [ "$UPSTREAM" != "origin/demo/multifile-service" ]; then echo "MULTIFILE_FAIL: wrong upstream: $UPSTREAM"; exit 1; fi
 
 rm -rf .agent
-xxx init
-xxx remote gh
+workflow init
+workflow remote gh
 
-LOG="${TMPDIR:-/tmp}/xxx-multifile.log"
+LOG="${TMPDIR:-/tmp}/workflow-multifile.log"
 rm -f "$LOG"
-XXX_DEBUG_AGENT_TURNS=1 xxx run 2>&1 | tee "$LOG"
+WORKFLOW_DEBUG_AGENT_TURNS=1 workflow run 2>&1 | tee "$LOG"
 
 grep -q "parsed 1 tasks from plan" "$LOG" || { echo "MULTIFILE_SERVICE_FAIL: expected 1 task"; exit 1; }
 
