@@ -1,3 +1,6 @@
+PORT_COMPATIBILITY_LEVEL = 2
+
+
 def parse_port(value: str) -> int:
     text = value.strip()
     if not text:
